@@ -1,0 +1,457 @@
+---
+title:  "A brief introduction to RMarkdown and Bookdown"
+author: "[Matthew Aldridge](mailto:m.aldridge@leeds.ac.uk)"
+date:   "August 2020"
+output:
+  html_document:
+    toc: true
+---
+
+
+
+## What is...
+
+
+### ...this document?
+
+This document is a quick guide to RMarkdown, a program that can produce "accessible" documents with mathematical content. It also includes a brief introduction to the associated Bookdown package for long documents. This guide is intended for people who have never used RMarkdown and want to get started as quickly as possible.
+
+If you're already happy with RMarkdown basics and would prefer a detailed guide to Bookdown for the ambitious, Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://teams.microsoft.com/l/file/181208CD-EE43-49B6-81DA-1018A7EE87EC?tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb&fileType=pdf&objectUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits%2FShared%20Documents%2FDiscussion%20-%20Digital%20accessibility%2FRMarkdown-Bookdown%20documentation%2FCreating%20Lecture%20Notes%20with%20Bookdown%20by%20Serguei%20Komissarov%2FBDGuide.pdf&baseUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits) is the document for you.
+
+
+### ...Markdown?
+
+**Markdown** is a markup language (like LaTeX or HTML) for writing documents. Compared to LaTeX:
+
+* Markdown is much simpler to learn.
+* The Markdown language is very easy to read, even for people who haven't learned to write it themselves.
+* Markdown is much more portable: the program Pandoc will convert Markdown to HTML or PDF or a Word document or an EPUB ebook, etc.
+* The tradeoff is that Markdown is much less powerful than LaTeX, and has a much, much more limited set of things you can do.
+* Importantly for us, documents written in Markdown and converted to HTML are more "accessible" than PDFs, and typically display better on small screens like phones and tablets.
+
+
+### ...RMarkdown?
+
+**RMarkdown** is a markup language and compiler (the compiler is called "knitr") based on Markdown that has two extra advantages for mathematicians:
+
+* Equations can be included using standard LaTeX math commands. If you "knit" (that is, compile) your RMarkdown document to HTML, the equations are displayed using MathML, which is an accessible format.
+* For statisticians: code using the statistical programming language R can be included very conveniently by printing the raw code itself, just showing the output of that code, or both.
+
+This document was written in RMarkdown and compiled to HTML. This guide concentrates on compiling to HTML, although compiling to a LaTeX-style PDF is also fairly easy.
+
+I convert LaTeX documents to RMarkdown by hand when I need to, although the ambitious reader might want to investigate how effective Pandoc's "LaTeX to Markdown" converter is.
+
+
+### ...Bookdown?
+
+RMarkdown is best suited for fairly short documents, such as handouts, problem sheets, or the notes for one lecture. For a long document, such as a book or the collected notes for a long lecture course, using RMarkdown with the **Bookdown** package is recommended. 
+
+* Bookdown can produce a whole website of interlinked HTML pages, one for each chapter, with convenient navigation, pleasant formatting, and a search facility. Again, this HTML output is much more accessible than a LaTeX-ed PDF file.
+* Bookdown adds to RMarkdown the ability to include numbered theorems and other cross-references (albeit with less power and flexibility than LaTeX).
+
+I have started to convert my MATH2750 notes to Bookdown -- you can [see how that is going here](https://mpaldridge.github.io/math2750/). (At the time of writing, only the first four chapters have nonzero material.)
+
+This guide concentrates on compiling a Bookdown project to an HTML site, although it also possible to compile to a PDF file, to an EPUB ebook, or (more trickily) all three simultaneously.
+
+
+
+## RMarkdown
+
+
+For a basic guide to RMarkdown, I recommend [Cosma Shalizi's "RMarkdown for Class Reports"](http://www.stat.cmu.edu/~cshalizi/rmarkdown/) (itself written in RMarkdown). For fulsome details of the breadth of what one can do with RMarkdown, the [R Markdown "Definitive Guide"](https://bookdown.org/yihui/rmarkdown/) (written using Bookdown) is the place to look. I'll just give some of the basics here, and will liberally copy Cosma as I do.
+
+
+### RStudio
+
+Using RMarkdown requires the statistics programming language R.
+
+I *strongly recommend* using R and RMarkdown via [the statistics program RStudio](https://rstudio.com/). RStudio is available for Windows, Mac and Linux. You can download "RStudio Desktop" (the standard version of the program) from [this page on the RStudio website](https://rstudio.com/products/rstudio/download/#download). Pay attention to the instruction there to first download R (the programming language) and then download RStudio (the program to interact with R).
+
+If you're experimenting with RMarkdown for the first time, or can't install programs on your computer, you can use RStudio without downloading anything by using the [RStudio Cloud at rstudio.cloud](https://rstudio.cloud/). 
+
+The hardcore user can alternatively use a text editor of their choice together with invoking R from the command line, without using RStudio, but they will have to work it out for themselves.
+
+Warning: in my experience, "knitting" (compiling) RMarkdown documents in RStudio on University centrally-controlled computers (in computer clusters, for example) rarely works.
+
+
+### Starting an RMarkdown document
+
+In RStudio, you can start a new RMarkdown document with `File -> New File -> R Markdown...`. You'll probably want to choose "Document" and output to HTML.
+
+This should automatically produce a header for your document. The header of your document should look something like this:
+```
+---
+title:  "A brief introduction to RMarkdown and Bookdown"
+author: "Matthew Aldridge"
+date:   "August 2020"
+output: html_document
+---
+```
+
+RMarkdown documents are conventionally saved with the suffix `.Rmd`.
+
+If you want a table of contents (like at the top of this document) use:
+```
+---
+title:  "A brief introduction to RMarkdown and Bookdown"
+author: "Matthew Aldridge"
+date:   "August 2020"
+output:
+  html_document:
+    toc: true
+---
+```
+
+(The line breaks and spacing in the last three lines are important: the spaces are in multiples of two.)
+
+To "knit" your document, click on the `Knit` button with the ball of wool next to it. This will compile your document to a HTML file `[filename].html` and then preview the document.
+
+
+### Basic (R)Markdown formatting
+
+To insert a **paragraph break** leave a blank line.
+
+Single line breaks
+can be used freely.
+
+```
+To insert a **paragraph break** leave a blank line.
+
+Single line breaks
+can be used freely.
+```
+
+To make text **bold**, surround it by **double asterisks**. To make text *italic*, surround it by *single asterisks*. (__Underscores__ work _also_.)
+
+```
+To make text **bold**, surround it by **double asterisks**. To make text
+*italic*, surround it by *single asterisks*. (__Underscores__ work _also_.)
+```
+
+To make a **bulleted list**:
+
+* Each list item should start with an asterisk `*` then a space.
+* The list should have a blank line before the first item.
++ `+` or `-` work just as well as `*`.
+
+```
+To make a **bulleted list**:
+
+* Each list item should start with an asterisk `*` then a space.
+* The list should have a blank line before the first item.
++ `+` or `-` work just as well as `*`.
+```
+
+To make a **numbered list**:
+
+1. Each list item should start: number, full stop, space.
+7. The list should have a blank line before the first item.
+5. RMarkdown will ensure the numbering is consecutive even if you get it wrong.
+
+```
+To make a **numbered list**:
+
+1. Each list item should start: number, full stop, space.
+7. The list should have a blank line before the first item.
+5. RMarkdown will ensure the numbering is consecutive even if you get it wrong.
+```
+
+**Hyperlinks** have [text in square brackets followed by the URL in round brackets](https://www.google.com). Raw URLs like https://eps.leeds.ac.uk/maths are automatically hyperlinked.
+
+```
+**Hyperlinks** have
+[text in square brackets followed by the URL in round brackets](https://www.google.com).
+Raw URLs like https://eps.leeds.ac.uk/maths are automatically hyperlinked.
+```
+
+**Headings** are set on their own line preceded by a number of hashes (`#`) and a space:
+
+* `#` for chapter headings (I often don't use these for short documents like this one),
+* `##` for section headings,
+* `###` for subsection headings.
+
+This subsection of this document began like this:
+```
+### Basic (R)Markdown formatting
+
+To insert a **paragraph break** leave a blank line.
+```
+
+**Quotation marks** are "smart" (that is, "curly") automatically. **En dashes** -- like this -- or **em-dashes**---like this---are done with two or three hyphens, like in LaTeX.
+
+```
+**Quotation marks** are "smart" (that is, "curly") automatically.
+**En dashes** -- like this -- or **em-dashes**---like this---are done with two
+or three hyphens, like in LaTeX.
+```
+
+
+**Tables** are a bit fiddly in Markdown. They can be produced using syntax like the following:
+
+| header1 | header2      | header3     | header4      |
+|---------|--------------|-------------|--------------|
+| content | some content | here's some | stuff        |
+| in      | my           | table       | in RMarkdown |
+
+```
+| header1 | header2      | header3     | header4      |
+|---------|--------------|-------------|--------------|
+| content | some content | here's some | stuff        |
+| in      | my           | table       | in RMarkdown |
+```
+
+Because I'm lazy and forget how to do things, I prefer to use [this Markdown table generator](https://www.tablesgenerator.com/markdown_tables) to make my tables for me, which also sorts out cell alignment for me.
+
+
+### Mathematical equations
+
+Mathematical equations are included with standard LaTeX syntax. Inline equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed equations use `\[` ... `\]` (or double `$$`s) to get
+  \[ \mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
+       \int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x . \]
+
+```
+**Mathematical equations** are included with standard LaTeX syntax. Inline
+equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed
+equations use `\[` ... `\]` (or double `$$`s) to get
+  \[ \mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
+     \int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x . \]
+```
+
+You can define your own commands using `\newcommand` as in normal LaTeX, but the `\newcommand` must itself be in an equation environment: $\newcommand{\Expect}[1]{\mathbb{E} \left( #1 \right)}$
+```
+\[ \newcommand{\Expect}[1]{\mathbb{E} \left( #1 \right)} \]
+```
+
+Fonts from standard AMS packages (`\mathbb`, `\mathcal`, `\mathfrak`, etc.) work in RMarkdown without using extra packages. The `align` environment for lining up equations works too, as do similar AMS math environments.
+
+\begin{align}
+  \mathcal{F} &= \mathfrak{A} + b + c \\
+              &= \mathbb{D} + e + f + \Expect{X} .
+\end{align}
+
+```
+\begin{align}
+  \mathcal{F} &= \mathfrak{A} + b + c \\
+              &= \mathbb{D} + e + f + \Expect{X} .
+\end{align}
+```
+
+
+### Including images
+
+It's easy to an include an image in Markdown if the image is already the correct size. Then the format is: exclamation mark `!`, caption in square brackets, link in round brackets, optional backslash `\`. The caption is also used as the image's "alt text" that can be read by a screenreader. (For accessibility, all images should have alt text.) If the backslash is used, the caption does not appear in the document itself, but only as alt text.
+
+So for a picture on the internet (with a displayed caption), we use:
+
+```
+![A photograph of the outside of the School of Mathematics at the University of
+Leeds](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Maths_Leeds_Uni_1_27_August_2017.jpg/320px-Maths_Leeds_Uni_1_27_August_2017.jpg)
+```
+
+![A photograph of the outside of the School of Mathematics at the University of Leeds](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Maths_Leeds_Uni_1_27_August_2017.jpg/320px-Maths_Leeds_Uni_1_27_August_2017.jpg)
+
+while for a picture on your own computer (with caption as alt text only), we can use, for example:
+
+```
+![My own picture of the School of Mathematics](/figures/school-of-maths.png)\
+```
+
+If your image is not already the correct size, this can be a bit of a hassle. The following RMarkdown work-around seems to be the best option:
+
+    ```{r, out.width = 100, echo = FALSE, fig.cap = "A smaller photograph of the School of Mathematics"}`r ''`
+    knitr::include_graphics("/figures/school-of-maths.png")
+    ```
+
+```{r, out.width = 100, echo = FALSE, fig.cap = "A smaller photograph of the School of Mathematics"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Maths_Leeds_Uni_1_27_August_2017.jpg/320px-Maths_Leeds_Uni_1_27_August_2017.jpg")
+```
+
+Here `out.width = ` gives the width you want the picture to be in pixels.
+
+
+### Including R code
+
+Statisticians might be interested in using R code with RMarkdown.
+
+You include an R "chunk" starting with three back-ticks ` ``` ` (that is, three single open-quotation marks) and `{r}` on the first line , and ending with three back-ticks ` ``` ` on the last line. Then RMarkdown will display both the code itself and also the output it produces.
+
+Therefore, the following code:
+
+    ```{r}`r ''`
+    X <- rnorm(1000)
+    mean(X)
+    hist(X)
+    ```
+
+produces the following code and its output:
+
+```{r}
+X <- rnorm(1000)
+mean(X)
+hist(X)
+```
+
+Other options can go with the opening ` ```{r}`:
+
+* To display the output but not the code itself, use
+ ` ```{r, echo = FALSE} `
+* To display only the raw code without its output, use
+ ` ```{r, eval = FALSE} `
+* To give a caption (and alt text) to any figures produced, use
+ ` ```{r, fig.cap = "Description of figure goes here"} `
+* To "cache" slow code so that the results are stored without it being re-run every time your document is knitted, use
+ ` ```{r, cache = TRUE} `
+ 
+Multiple options can be used, separated by commas. There is a very wide range of options available for the technically-minded statistician: see [this voluminous list](https://yihui.org/knitr/options/) for more.
+
+
+### Uploading RMarkdown documents to Minerva
+
+RMarkdown documents knitted to HTML should produce a single self-contained `.html` file. This can be directly uploaded to Minerva in the same way a PDF would be.
+
+
+
+## Bookdown
+
+
+RMarkdown "out of the box" is good for short-ish documents like this one. For longer documents, such as the collected lecture notes for a whole course, it's best to use RMarkdown in combination with Bookdown. Bookdown, when converted to HTML, builds your document into a website, with separate pages for each chapter or section, and some extra LaTeX-like facilities, like automatic numbering of Theorems and Definitions.
+
+**The first time you use Bookdown, you will have to install the Bookdown package**, by typing `install.packages('bookdown')` into the Console in RStudio.
+
+This brief introduction should be sufficient for you to produce a basic HTML site using Bookdown. Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://teams.microsoft.com/l/file/181208CD-EE43-49B6-81DA-1018A7EE87EC?tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb&fileType=pdf&objectUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits%2FShared%20Documents%2FDiscussion%20-%20Digital%20accessibility%2FRMarkdown-Bookdown%20documentation%2FCreating%20Lecture%20Notes%20with%20Bookdown%20by%20Serguei%20Komissarov%2FBDGuide.pdf&baseUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits) has many more details, and in particular discusses compiling the same document to HTML and PDF simultaneously. ["Bookdown: Authoring Books and Technical Documents with R Markdown"](https://bookdown.org/yihui/bookdown/) is recommended as the standard manual for Bookdown.
+
+
+
+### Starting a Bookdown document
+
+The quickest way to begin a Bookdown document is to start an RMarkdown as document as usual. Then change the header to look like this:
+
+```
+---
+title:  "MATH2750 Introduction to Markov Processes"
+author: "Matthew Aldridge"
+date:   "Semester 2, 2020--21"
+site:   bookdown::bookdown_site
+output: bookdown::gitbook
+---
+```
+
+(Here, "gitbook" is the recommended style of Bookdown site.)
+
+Create a new folder, and save your file in it. You can now start writing an RMarkdown document in the usual way. Remember to use Chapter headings (with a single `#`) to divide your document.
+
+Knitting your file will produce a website consisting of multiple files in the subfolder `_book`.
+
+It's normally good practice to write each chapter of a long document in a separate file within the same folder. In that case, the first file with the header should be called `index.Rmd`, and this is the file you will knit to compile the document. Each other file should start immediately with a chapter heading, such as `# Introduction`. By default, all `.Rmd` files in the same folder as `index.Rmd` are included in the document after `index.Rmd` in alphabetical order, so the simplest thing to do is name your other files `01-introduction.Rmd`, `02-basic-algebra.Rmd` and so on.
+
+
+### Numbering and referencing in Bookdown
+
+Most things you'll write into a Bookdown document will be just standard RMarkdown. But a bonus extra of Bookdown is that it adds to RMarkdown numbered Theorem environments, and other cross-referencing abilities.
+
+**Numbering of equations** works like this:
+
+```
+\begin{equation} 
+  \mathbb{P}(X = k) = \binom{n}{k} p^k (1 - p)^{n - k} (\#eq:binom)
+\end{equation}
+```
+
+The label must be of the form `\#eq:namegoeshere`. We can refer to this equation using `\@ref(eq:binom)`,
+
+```
+For the binomial probability, see \@ref(eq:binom) above.
+```
+
+A **numbered theorem** begins on the first line with: three back-ticks ` ``` ` (that is, three single open-quotation marks); open brace `{`; the environment (`theorem`); the label (I've chosen "`pythag`"), if you want to refer back to it later; the name of the theorem (`name = "Pythagoras' theorem"`) if you want one to appear; and close brace `}`. It ends on the last line with three back-ticks ` ``` `.
+
+    `r ''````{theorem, pythag, name = "Pythagoras' theorem"}  
+    For a right-angled  triangle, where $c$ denotes the length of the hypotenuse  
+    and $a$ and $b$ denote the lengths of the other two sides, we have  
+    $a^2 + b^2 = c^2$.  
+    ```
+
+This will appear like so:
+
+**Theorem 1.1 (Pythagoras' theorem).** *For a right-angled  triangle, where $c$ denotes the length of the hypotenuse and $a$ and $b$ denote the lengths of the other two sides, we have $a^2 + b^2 = c^2$.*
+    
+We can refer to a labelled theorem like this: `see Theorem \@ref(thm:pythag)`. Note the "label prefix" `thm`.
+
+Other numbered environments that can be used similarly are:
+
+```{r theorem-envs, echo=FALSE}
+knitr::kable(data.frame(
+  Environment = names(bookdown:::theorem_abbr),
+  `Printed Name` = unname(unlist(bookdown:::label_names_math)),
+  `Label Prefix` = unname(bookdown:::theorem_abbr),
+  stringsAsFactors = FALSE, check.names = FALSE))
+```
+
+One more example: the conjecture
+
+    `r ''````{conjecture, RH, name = "Riemann hypothesis"}  
+    All nontrivial zeros of the Riemann zeta function lie on the critical line
+    $\mathrm{Re}(z) = \frac{1}{2}$.  
+    ```
+    
+is referenced with `In Conjecture \@ref(cnj:RH) it was proposed...`
+
+By default, Bookdown numbers within chapters, so the first theorem in Chapter 3 is "Theorem 3.1"). The environments do not share a numbering system; thus Theorem 3.1 is followed by Lemma 3.1, not Lemma 3.2. This is, as far as I am aware, unavoidable in Bookdown. Sorry. `:o(`
+
+**Proofs** or other unnumbered environments are used similarly.
+
+    `r ''````{proof}  
+    I have discovered a truly marvelous proof of this, which this RMarkdown
+    document is too short to contain.
+    ```
+
+The choices here are `r knitr::combine_words(names(bookdown:::label_names_math2), before = '\x60')`.
+
+To **link to another Chapter or Section**, the chapter/section should be given a label when first used as follows:
+
+```
+# Introductory Material {#intro}
+```
+
+This can then be referenced in a LateX-like way, with a numeric link:
+```
+Recall that we saw in Chapter \@ref{intro} that ...
+```
+or in a hyperlink-like way, with a text link:
+```
+Recall that we saw [at the beginning of the course](#intro) that ...
+```
+
+For other bells and whistles provided by Bookdown, see [the Bookdown manual](https://bookdown.org/yihui/bookdown/).
+
+
+### Managing a Bookdown document as an RStudio project
+
+For big writing projects, for documents you want to simultaneously compile to multiple formats (HTML site, PDF document, EPUB ebook), or for documents where you want to play around with settings and appearance, it's best to manage your work in an RStudio project.
+
+Click `File -> New Project`, then choose `New Directory` and `Book Project using bookdown`. This will open your `index.Rmd` file and two settings files `_output.yml` and `_bookdown.yml`. Note also the file directory panel on the right; your first few chapter files have been set up as `01-intro.Rmd`, `02-literature.Rmd`, and so on. You can rename and open them, all from within RStudio.
+
+[Serguei's document](https://teams.microsoft.com/l/file/181208CD-EE43-49B6-81DA-1018A7EE87EC?tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb&fileType=pdf&objectUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits%2FShared%20Documents%2FDiscussion%20-%20Digital%20accessibility%2FRMarkdown-Bookdown%20documentation%2FCreating%20Lecture%20Notes%20with%20Bookdown%20by%20Serguei%20Komissarov%2FBDGuide.pdf&baseUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits) has lots of useful advise for managing your  RStudio project and using Bookdown to compile to multiple formats.
+
+
+### Uploading Bookdown sites to Minerva
+
+Bookdown produces a whole website in the subfolder `_book`, containing the homepage `index.html`, along with many other files and sub-subfolders.
+
+To upload your site to Minerva, you will first need to "zip" all the files in the `_book` folder together into a single `.zip` file. Your computer probably has a built-in program to do this: in Windows, I right-click on the folder `_book` and select `Send to -> Compressed (zipped) folder`; in MacOS, I right-click the folder and select `Compress "_book"`.
+
+The Minerva support website has [detailed of instructions of how to upload your zip file to Minerva](https://www.leeds.ac.uk/vle/staff/build/zip/). The rough outline is:
+
+1. Choose `Add Content -> File`.
+1. Choose `Browse Content Collection -> Upload Zip Package`.
+1. Create a new folder to upload to, using `Add Folder`.
+1. Click on `Choose File`, pick your zip file from your computer, and click `Submit`.
+1. Choose `index.html` as the file to link to.
+1. Make sure you select `Open file in a new window`.
+
+
+
+## Comments and corrections
+
+
+...can be sent to m.aldridge@leeds.ac.uk.
