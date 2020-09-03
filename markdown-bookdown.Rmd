@@ -16,7 +16,9 @@ output:
 
 This document is a quick guide to RMarkdown, a program that can produce "accessible" documents with mathematical content. It also includes a brief introduction to the associated Bookdown package for long documents. This guide is intended for people who have never used RMarkdown and want to get started as quickly as possible.
 
-If you're already happy with RMarkdown basics and would prefer a detailed guide to Bookdown for the ambitious, Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://teams.microsoft.com/l/file/181208CD-EE43-49B6-81DA-1018A7EE87EC?tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb&fileType=pdf&objectUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits%2FShared%20Documents%2FDiscussion%20-%20Digital%20accessibility%2FRMarkdown-Bookdown%20documentation%2FCreating%20Lecture%20Notes%20with%20Bookdown%20by%20Serguei%20Komissarov%2FBDGuide.pdf&baseUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits) is the document for you.
+If you're already happy with RMarkdown basics and would prefer a detailed guide to Bookdown for the ambitious, Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://minerva.leeds.ac.uk/bbcswebdav/courses/201920_5685_MATH2620/BB-Guide/index.html) is the document for you.
+
+This document was itself written in RMarkdown. You can [read the RMarkdown source file that produced it here](https://github.com/mpaldridge/rmarkdown-bookdown/blob/master/markdown-bookdown.Rmd).
 
 
 ### ...Markdown?
@@ -24,7 +26,7 @@ If you're already happy with RMarkdown basics and would prefer a detailed guide 
 **Markdown** is a markup language (like LaTeX or HTML) for writing documents. Compared to LaTeX:
 
 * Markdown is much simpler to learn.
-* The Markdown language is very easy to read, even for people who haven't learned to write it themselves.
+* The Markdown language is very easy to read, even for people who haven't learned to write it themselves. (Look at [the code that produced this document](https://github.com/mpaldridge/rmarkdown-bookdown/blob/master/markdown-bookdown.Rmd) for an example.)
 * Markdown is much more portable: the program Pandoc will convert Markdown to HTML or PDF or a Word document or an EPUB ebook, etc.
 * The tradeoff is that Markdown is much less powerful than LaTeX, and has a much, much more limited set of things you can do.
 * Importantly for us, documents written in Markdown and converted to HTML are more "accessible" than PDFs, and typically display better on small screens like phones and tablets.
@@ -37,7 +39,7 @@ If you're already happy with RMarkdown basics and would prefer a detailed guide 
 * Equations can be included using standard LaTeX math commands. If you "knit" (that is, compile) your RMarkdown document to HTML, the equations are displayed using MathML, which is an accessible format.
 * For statisticians: code using the statistical programming language R can be included very conveniently by printing the raw code itself, just showing the output of that code, or both.
 
-This document was written in RMarkdown and compiled to HTML. This guide concentrates on compiling to HTML, although compiling to a LaTeX-style PDF is also fairly easy.
+This document was written in RMarkdown and "knitted" (compiled) to HTML. This guide concentrates on knitting to HTML, although knitting to a (nonaccessible) LaTeX-style PDF is also fairly easy.
 
 I convert LaTeX documents to RMarkdown by hand when I need to, although the ambitious reader might want to investigate how effective Pandoc's "LaTeX to Markdown" converter is.
 
@@ -122,7 +124,6 @@ can be used freely.
 ```
 
 To make text **bold**, surround it by **double asterisks**. To make text *italic*, surround it by *single asterisks*. (__Underscores__ work _also_.)
-
 ```
 To make text **bold**, surround it by **double asterisks**. To make text
 *italic*, surround it by *single asterisks*. (__Underscores__ work _also_.)
@@ -157,7 +158,6 @@ To make a **numbered list**:
 ```
 
 **Hyperlinks** have [text in square brackets followed by the URL in round brackets](https://www.google.com). Raw URLs like https://eps.leeds.ac.uk/maths are automatically hyperlinked.
-
 ```
 **Hyperlinks** have
 [text in square brackets followed by the URL in round brackets](https://www.google.com).
@@ -178,7 +178,6 @@ To insert a **paragraph break** leave a blank line.
 ```
 
 **Quotation marks** are "smart" (that is, "curly") automatically. **En dashes** -- like this -- or **em-dashes**---like this---are done with two or three hyphens, like in LaTeX.
-
 ```
 **Quotation marks** are "smart" (that is, "curly") automatically.
 **En dashes** -- like this -- or **em-dashes**---like this---are done with two
@@ -208,7 +207,6 @@ Because I'm lazy and forget how to do things, I prefer to use [this Markdown tab
 Mathematical equations are included with standard LaTeX syntax. Inline equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed equations use `\[` ... `\]` (or double `$$`s) to get
   \[ \mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
        \int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x . \]
-
 ```
 **Mathematical equations** are included with standard LaTeX syntax. Inline
 equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed
@@ -298,7 +296,7 @@ Other options can go with the opening ` ```{r}`:
 * To display only the raw code without its output, use
  ` ```{r, eval = FALSE} `
 * To give a caption (and alt text) to any figures produced, use
- ` ```{r, fig.cap = "Description of figure goes here"} `
+ ` ```{r, fig.cap = "My caption"} `
 * To "cache" slow code so that the results are stored without it being re-run every time your document is knitted, use
  ` ```{r, cache = TRUE} `
  
@@ -318,7 +316,7 @@ RMarkdown "out of the box" is good for short-ish documents like this one. For lo
 
 **The first time you use Bookdown, you will have to install the Bookdown package**, by typing `install.packages('bookdown')` into the Console in RStudio.
 
-This brief introduction should be sufficient for you to produce a basic HTML site using Bookdown. Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://teams.microsoft.com/l/file/181208CD-EE43-49B6-81DA-1018A7EE87EC?tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb&fileType=pdf&objectUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits%2FShared%20Documents%2FDiscussion%20-%20Digital%20accessibility%2FRMarkdown-Bookdown%20documentation%2FCreating%20Lecture%20Notes%20with%20Bookdown%20by%20Serguei%20Komissarov%2FBDGuide.pdf&baseUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits) has many more details, and in particular discusses compiling the same document to HTML and PDF simultaneously. ["Bookdown: Authoring Books and Technical Documents with R Markdown"](https://bookdown.org/yihui/bookdown/) is recommended as the standard manual for Bookdown.
+This brief introduction should be sufficient for you to produce a basic HTML site using Bookdown. Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://minerva.leeds.ac.uk/bbcswebdav/courses/201920_5685_MATH2620/BB-Guide/index.html) has many more details, and in particular discusses compiling the same document to HTML and PDF simultaneously. ["Bookdown: Authoring Books and Technical Documents with R Markdown"](https://bookdown.org/yihui/bookdown/) is recommended as the standard manual for Bookdown.
 
 
 
@@ -344,6 +342,8 @@ Knitting your file will produce a website consisting of multiple files in the su
 
 It's normally good practice to write each chapter of a long document in a separate file within the same folder. In that case, the first file with the header should be called `index.Rmd`, and this is the file you will knit to compile the document. Each other file should start immediately with a chapter heading, such as `# Introduction`. By default, all `.Rmd` files in the same folder as `index.Rmd` are included in the document after `index.Rmd` in alphabetical order, so the simplest thing to do is name your other files `01-introduction.Rmd`, `02-basic-algebra.Rmd` and so on.
 
+As mentioned earlier, [my incompletely-Bookdown'd MATH2750 lecture notes are here](https://mpaldridge.github.io/math2750/). I typed all the material directly into `index.Rmd` (do as I say not as I do!) -- you can [read my `index.Rmd` file here](https://github.com/mpaldridge/mpaldridge.github.io/blob/master/math2750/index.Rmd). (The only nonstandard thing I did was set up a "`summ`" `block` using CSS, in order to shade in a lecture summary at the beginning of each lecture.)
+
 
 ### Numbering and referencing in Bookdown
 
@@ -363,7 +363,7 @@ The label must be of the form `\#eq:namegoeshere`. We can refer to this equation
 For the binomial probability, see \@ref(eq:binom) above.
 ```
 
-A **numbered theorem** begins on the first line with: three back-ticks ` ``` ` (that is, three single open-quotation marks); open brace `{`; the environment (`theorem`); the label (I've chosen "`pythag`"), if you want to refer back to it later; the name of the theorem (`name = "Pythagoras' theorem"`) if you want one to appear; and close brace `}`. It ends on the last line with three back-ticks ` ``` `.
+A **numbered theorem** begins on the first line with: three back-ticks ` ``` ` (that is, three single open-quotation marks); open brace `{`; the environment (`theorem`); the label (I've chosen "`pythag`"), if you want to refer back to it later; the name of the theorem (`name = "Pythagoras' theorem"`), if you want one to appear; and close brace `}`. It ends on the last line with three back-ticks ` ``` `.
 
     `r ''````{theorem, pythag, name = "Pythagoras' theorem"}  
     For a right-angled  triangle, where $c$ denotes the length of the hypotenuse  
@@ -394,7 +394,7 @@ One more example: the conjecture
     $\mathrm{Re}(z) = \frac{1}{2}$.  
     ```
     
-is referenced with `In Conjecture \@ref(cnj:RH) it was proposed...`
+is referenced `In Conjecture \@ref(cnj:RH) it was proposed...`
 
 By default, Bookdown numbers within chapters, so the first theorem in Chapter 3 is "Theorem 3.1"). The environments do not share a numbering system; thus Theorem 3.1 is followed by Lemma 3.1, not Lemma 3.2. This is, as far as I am aware, unavoidable in Bookdown. Sorry. `:o(`
 
@@ -431,7 +431,7 @@ For big writing projects, for documents you want to simultaneously compile to mu
 
 Click `File -> New Project`, then choose `New Directory` and `Book Project using bookdown`. This will open your `index.Rmd` file and two settings files `_output.yml` and `_bookdown.yml`. Note also the file directory panel on the right; your first few chapter files have been set up as `01-intro.Rmd`, `02-literature.Rmd`, and so on. You can rename and open them, all from within RStudio.
 
-[Serguei's document](https://teams.microsoft.com/l/file/181208CD-EE43-49B6-81DA-1018A7EE87EC?tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb&fileType=pdf&objectUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits%2FShared%20Documents%2FDiscussion%20-%20Digital%20accessibility%2FRMarkdown-Bookdown%20documentation%2FCreating%20Lecture%20Notes%20with%20Bookdown%20by%20Serguei%20Komissarov%2FBDGuide.pdf&baseUrl=https%3A%2F%2Fleeds365.sharepoint.com%2Fsites%2FTEAM-SchoolofMathematits) has lots of useful advise for managing your  RStudio project and using Bookdown to compile to multiple formats.
+[Serguei's document](https://minerva.leeds.ac.uk/bbcswebdav/courses/201920_5685_MATH2620/BB-Guide/index.html) has lots of useful advise for managing your  RStudio project and using Bookdown to compile to multiple formats.
 
 
 ### Uploading Bookdown sites to Minerva
@@ -442,8 +442,8 @@ To upload your site to Minerva, you will first need to "zip" all the files in th
 
 The Minerva support website has [detailed of instructions of how to upload your zip file to Minerva](https://www.leeds.ac.uk/vle/staff/build/zip/). The rough outline is:
 
-1. Choose `Add Content -> File`.
-1. Choose `Browse Content Collection -> Upload Zip Package`.
+1. Choose `Add Content` then `File`.
+1. Choose `Browse Content Collection` then `Upload Zip Package`.
 1. Create a new folder to upload to, using `Add Folder`.
 1. Click on `Choose File`, pick your zip file from your computer, and click `Submit`.
 1. Choose `index.html` as the file to link to.
