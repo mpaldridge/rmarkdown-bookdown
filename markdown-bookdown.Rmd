@@ -1,7 +1,7 @@
 ---
-title:  "A brief introduction to RMarkdown and Bookdown"
-author: "[Matthew Aldridge](mailto:m.aldridge@leeds.ac.uk)"
-date:   "August 2020"
+title:  "A brief introduction to R Markdown and Bookdown"
+author: "[Matthew Aldridge](https://mpaldridge.github.io/)"
+date:   "August 2020, updated August 2022"
 output:
   html_document:
     toc: true
@@ -14,11 +14,11 @@ output:
 
 ### ...this document?
 
-This document is a quick guide to RMarkdown, a program that can produce "accessible" documents with mathematical content. It also includes a brief introduction to the associated Bookdown package for long documents. This guide is intended for people who have never used RMarkdown and want to get started as quickly as possible.
+This document is a quick guide to R Markdown, a program that can produce "accessible" documents with mathematical content. It also includes a brief introduction to the associated Bookdown package for long documents. This guide is intended for people who have never used RMarkdown and want to get started as quickly as possible.
 
-If you're already happy with RMarkdown basics and would prefer a detailed guide to Bookdown for the ambitious, Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://minerva.leeds.ac.uk/bbcswebdav/courses/201920_5685_MATH2620/BB-Guide/index.html) is the document for you.
+If you're already happy with R Markdown basics and would prefer a detailed guide to Bookdown for the ambitious, you may prefer Serguei Komissarov's ["Creating lecture notes with Bookdown"](https://minerva.leeds.ac.uk/bbcswebdav/courses/201920_5685_MATH2620/BB-Guide/index.html) is the document for you. Some other R Markdown-relate things from me are [on my website here](https://mpaldridge.github.io/rmarkdown/)
 
-This document was itself written in RMarkdown. You can [read the RMarkdown source file that produced it here](https://github.com/mpaldridge/rmarkdown-bookdown/blob/master/markdown-bookdown.Rmd).
+This document was itself written in RMarkdown. You can [read the R Markdown source file that produced it here](https://github.com/mpaldridge/rmarkdown-bookdown/blob/master/markdown-bookdown.Rmd).
 
 
 ### ...Markdown?
@@ -32,42 +32,40 @@ This document was itself written in RMarkdown. You can [read the RMarkdown sourc
 * Importantly for us, documents written in Markdown and converted to HTML are more "accessible" than PDFs, and typically display better on small screens like phones and tablets.
 
 
-### ...RMarkdown?
+### ...R Markdown?
 
-**RMarkdown** is a markup language and compiler (the compiler is called "knitr") based on Markdown that has two extra advantages for mathematicians:
+**R Markdown** is a way of writing Markdown documents and compiling them (R Markdown's compiler is called "knitr") via the statistics programming language R. Compared to "plain Markdown", R Markdown that has two important extra advantages for mathematicians:
 
-* Equations can be included using standard LaTeX math commands. If you "knit" (that is, compile) your RMarkdown document to HTML, the equations are displayed using MathML, which is an accessible format.
-* For statisticians: code using the statistical programming language R can be included very conveniently by printing the raw code itself, just showing the output of that code, or both.
+* Equations can be included using standard LaTeX math commands. If you "knit" (that is, compile) your R Markdown document to HTML format, the equations are displayed using MathML, which is an accessible format.
+* Code using the statistical programming language R (or other languages) can be included within documents very conveniently, by printing the raw code itself, just showing the output of that code, or both.
 
-This document was written in RMarkdown and "knitted" (compiled) to HTML. This guide concentrates on knitting to HTML, although knitting to a (nonaccessible) LaTeX-style PDF is also fairly easy.
+This document was written in R Markdown and "knitted" (compiled) to HTML. This guide concentrates on knitting to HTML, although knitting to a (nonaccessible) LaTeX-style PDF is also fairly easy.
 
-I convert LaTeX documents to RMarkdown by hand when I need to, although the ambitious reader might want to investigate how effective Pandoc's "LaTeX to Markdown" converter is.
+When I want to convert LaTeX documents to R Markdown, I do it "by hand" -- if I'm editing the document's contents anyway, the format conversion perhaps doubles the time I spend on editing. The ambitious reader might want to investigate how effective Pandoc's "LaTeX to Markdown" converter is.
 
 
 ### ...Bookdown?
 
-RMarkdown is best suited for fairly short documents, such as handouts, problem sheets, or the notes for one lecture. For a long document, such as a book or the collected notes for a long lecture course, using RMarkdown with the **Bookdown** package is recommended. 
+R Markdown is best suited for a single short document, such as a handout, a problem sheet, or the notes for one lecture. For a long document, such as a book or the collected notes for a long lecture course, using R Markdown with the **Bookdown** package is recommended. 
 
-* Bookdown can produce a whole website of interlinked HTML pages, one for each chapter, with convenient navigation, pleasant formatting, and a search facility. Again, this HTML output is much more accessible than a LaTeX-ed PDF file.
-* Bookdown adds to RMarkdown the ability to include numbered theorems and other cross-references (albeit with less power and flexibility than LaTeX).
+* Bookdown can produce a whole website of interlinked HTML pages, one for each chapter, with convenient navigation, pleasant formatting, and a search facility. Again, this HTML output is much more accessible than a LaTeX-ed PDF file, although you can also make a PDF file simultaneously with the HTML site from the same source.
+* Bookdown adds to R Markdown the ability to include numbered theorems and other cross-references (albeit with less power and flexibility than LaTeX).
 
-I have started to convert my MATH2750 notes to Bookdown -- you can [see how that is going here](https://mpaldridge.github.io/math2750/). (At the time of writing, only the first four chapters have nonzero material.)
-
-This guide concentrates on compiling a Bookdown project to an HTML site, although it also possible to compile to a PDF file, to an EPUB ebook, or (more trickily) all three simultaneously.
+I have written [my notes for the module MATH1710](https://mpaldridge.github.io/math2750/) using Bookdown. You may want to look at those notes for a demonstration of what R Markdown can do.
 
 
 
-## RMarkdown
+## R Markdown
 
 
-For a basic guide to RMarkdown, I recommend [Cosma Shalizi's "RMarkdown for Class Reports"](http://www.stat.cmu.edu/~cshalizi/rmarkdown/) (itself written in RMarkdown). For fulsome details of the breadth of what one can do with RMarkdown, the [R Markdown "Definitive Guide"](https://bookdown.org/yihui/rmarkdown/) (written using Bookdown) is the place to look. I'll just give some of the basics here, and will liberally copy Cosma as I do.
+For a basic guide to R Markdown, I recommend [Cosma Shalizi's "RMarkdown for Class Reports"](http://www.stat.cmu.edu/~cshalizi/rmarkdown/) (itself written in RMarkdown). For fulsome details of the breadth of what one can do with RMarkdown, the [R Markdown "Definitive Guide"](https://bookdown.org/yihui/rmarkdown/) (written using Bookdown) is the place to look. I'll just give some of the basics here.
 
 
 ### RStudio
 
 Using RMarkdown requires the statistics programming language R.
 
-I *strongly recommend* using R and RMarkdown via [the statistics program RStudio](https://rstudio.com/). RStudio is available for Windows, Mac and Linux. You can download "RStudio Desktop" (the standard version of the program) from [this page on the RStudio website](https://rstudio.com/products/rstudio/download/#download). Pay attention to the instruction there to first download R (the programming language) and then download RStudio (the program to interact with R).
+I *strongly recommend* using R and R Markdown via [the statistics program RStudio](https://rstudio.com/). RStudio is available for Windows, Mac and Linux. You can download "RStudio Desktop" (the standard version of the program) from [this page on the RStudio website](https://rstudio.com/products/rstudio/download/#download). Pay attention to the instruction there to first download R (the programming language) and then download RStudio (the program to interact with R).
 
 If you're experimenting with RMarkdown for the first time, or can't install programs on your computer, you can use RStudio without downloading anything by using the [RStudio Cloud at rstudio.cloud](https://rstudio.cloud/). 
 
@@ -76,9 +74,9 @@ The hardcore user can alternatively use a text editor of their choice together w
 Warning: in my experience, "knitting" (compiling) RMarkdown documents in RStudio on University centrally-controlled computers (in computer clusters, for example) rarely works.
 
 
-### Starting an RMarkdown document
+### Starting an R Markdown document
 
-In RStudio, you can start a new RMarkdown document with `File -> New File -> R Markdown...`. You'll probably want to choose "Document" and output to HTML.
+In RStudio, you can start a new R Markdown document with `File -> New File -> R Markdown...`. You'll probably want to choose "Document" and output to HTML.
 
 This should automatically produce a header for your document. The header of your document should look something like this:
 ```
@@ -106,10 +104,12 @@ output:
 
 (The line breaks and spacing in the last three lines are important: the spaces are in multiples of two.)
 
-To "knit" your document, click on the `Knit` button with the ball of wool next to it. This will compile your document to a HTML file `[filename].html` and then preview the document.
+To "knit" your document, click on the `Knit` button with the ball of wool next to it. This will compile your document `[filename].Rmd`to an HTML file `[filename].html` and then preview the HTML file.
 
 
-### Basic (R)Markdown formatting
+### Basic (R) Markdown formatting
+
+There are two ways to format your R Markdown document. The "traditional" way is to use the Markdown commands, which are punctuation marks that have special meanings, similar to LaTeX (but simpler and more human-readable). The "new" way is to use the RStudio visual editor, which gives a "point and click" experience similar to Microsoft Word. To switch between the standard text editor and the visual editor, click the "pair of compasses" button (that looks like a capital `A`) in the top-right of the editing panel.
 
 To insert a **paragraph break** leave a blank line.
 
@@ -123,52 +123,59 @@ Single line breaks
 can be used freely.
 ```
 
-To make text **bold**, surround it by **double asterisks**. To make text *italic*, surround it by *single asterisks*. (__Underscores__ work _also_.)
+To make text **bold**, surround it by **double asterisks** (or click the **B** button in the visual editor). To make text *italic*, surround it by *single asterisks* (or click the ***I*** button in the visual editor).
 ```
-To make text **bold**, surround it by **double asterisks**. To make text
-*italic*, surround it by *single asterisks*. (__Underscores__ work _also_.)
+To make text **bold**, surround it by **double asterisks** (or click the
+**B** button in the visual editor). To make text *italic*, surround it by
+*single asterisks* (or click the ***I*** button in the visual editor).
 ```
 
 To make a **bulleted list**:
 
-* Each list item should start with an asterisk `*` then a space.
-* The list should have a blank line before the first item.
-+ `+` or `-` work just as well as `*`.
+- Each list item should start with a dash `-` then a space.
+- The list should have a blank line before the first item.
+- `+` or `-` work just as well as `*`.
+- Or use the bulletpoints button in the visual editor.
 
 ```
 To make a **bulleted list**:
 
-* Each list item should start with an asterisk `*` then a space.
-* The list should have a blank line before the first item.
-+ `+` or `-` work just as well as `*`.
+- Each list item should start with a dash `-` then a space.
+- The list should have a blank line before the first item.
+- `+` or `-` work just as well as `*`.
+- Or use the bulletpoints button in the visual editor.
 ```
 
 To make a **numbered list**:
 
 1. Each list item should start: number, full stop, space.
-7. The list should have a blank line before the first item.
+2. The list should have a blank line before the first item.
 5. RMarkdown will ensure the numbering is consecutive even if you get it wrong.
+1. Or use the numbered list button in the visual editor.
 
 ```
 To make a **numbered list**:
 
 1. Each list item should start: number, full stop, space.
-7. The list should have a blank line before the first item.
+2. The list should have a blank line before the first item.
 5. RMarkdown will ensure the numbering is consecutive even if you get it wrong.
+1. Or use the numbered list button in the visual editor.
 ```
 
-**Hyperlinks** have [text in square brackets followed by the URL in round brackets](https://www.google.com). Raw URLs like https://eps.leeds.ac.uk/maths are automatically hyperlinked.
+**Hyperlinks** have [text in square brackets followed by the URL in round brackets](https://www.google.com), or use the chain-link button in the visual editor. Raw URLs like https://eps.leeds.ac.uk/maths are automatically hyperlinked.
 ```
 **Hyperlinks** have
-[text in square brackets followed by the URL in round brackets](https://www.google.com).
+[text in square brackets followed by the URL in round brackets](https://www.google.com),
+or use the chain-link button in the visual editor.
 Raw URLs like https://eps.leeds.ac.uk/maths are automatically hyperlinked.
 ```
 
 **Headings** are set on their own line preceded by a number of hashes (`#`) and a space:
 
-* `#` for chapter headings (I often don't use these for short documents like this one),
-* `##` for section headings,
-* `###` for subsection headings.
+- `#` for chapter headings (I often don't use these for short documents like this one),
+- `##` for section headings,
+- `###` for subsection headings.
+- In the visual editor, change “Normal” in the left-most menu to the heading level required.
 
 This subsection of this document began like this:
 ```
@@ -183,7 +190,6 @@ To insert a **paragraph break** leave a blank line.
 **En dashes** -- like this -- or **em-dashes**---like this---are done with two
 or three hyphens, like in LaTeX.
 ```
-
 
 **Tables** are a bit fiddly in Markdown. They can be produced using syntax like the following:
 
@@ -204,15 +210,19 @@ Because I'm lazy and forget how to do things, I prefer to use [this Markdown tab
 
 ### Mathematical equations
 
-Mathematical equations are included with standard LaTeX syntax. Inline equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed equations use `\[` ... `\]` (or double `$$`s) to get
-  \[ \mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
-       \int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x . \]
+Mathematical equations are included with standard LaTeX syntax. Inline equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed equations use double `$$`s (or \[` ... `\]` ) to get
+$$
+\mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
+\int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x .
+$$
 ```
-**Mathematical equations** are included with standard LaTeX syntax. Inline
-equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and displayed
-equations use `\[` ... `\]` (or double `$$`s) to get
-  \[ \mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
-     \int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x . \]
+Mathematical equations are included with standard LaTeX syntax. Inline
+equations use single `$`s to get $X \sim \mathrm{N}(\mu, \sigma)$, and
+displayed equations use double `$$`s (or \[` ... `\]` ) to get
+$$
+\mathbb{P} (a \leq X \leq b) = \frac{1}{\sqrt{2 \pi \sigma^2}}
+\int_a^b \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) \, \mathrm{d}x .
+$$
 ```
 
 You can define your own commands using `\newcommand` as in normal LaTeX, but the `\newcommand` must itself be in an equation environment: $\newcommand{\Expect}[1]{\mathbb{E} \left( #1 \right)}$
@@ -220,7 +230,7 @@ You can define your own commands using `\newcommand` as in normal LaTeX, but the
 \[ \newcommand{\Expect}[1]{\mathbb{E} \left( #1 \right)} \]
 ```
 
-Fonts from standard AMS packages (`\mathbb`, `\mathcal`, `\mathfrak`, etc.) work in RMarkdown without using extra packages. The `align` environment for lining up equations works too, as do similar AMS math environments.
+Fonts from standard AMS packages (`\mathbb`, `\mathcal`, `\mathfrak`, etc.) work in R Markdown without using extra packages. The `align` environment for lining up equations works too, as do similar AMS math environments.
 
 \begin{align}
   \mathcal{F} &= \mathfrak{A} + b + c \\
